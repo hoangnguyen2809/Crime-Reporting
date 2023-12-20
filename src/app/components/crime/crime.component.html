@@ -1,0 +1,14 @@
+<td>{{ crime.location.name }}</td>
+<td>{{ crime.name }}</td>
+<td>{{ crime.time_reported | date : "yyyy-MM-dd (h:mma)" | lowercase }}</td>
+<td class="status">{{ crime.status ? "OPEN" : "RESOLVED" }}</td>
+<td class="extra">
+  <button class="btn btn-outline-primary" title="SHOW MORE">
+    <i class="bi bi-info-square"></i>
+  </button>
+</td>
+<td class="extra">
+  <button class="btn btn-outline-danger" id="delete" title="DELETE">
+    <i class="bi bi-trash"></i>
+  </button>
+</td>
