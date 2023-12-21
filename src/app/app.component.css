@@ -1,0 +1,10 @@
+.app-container {
+  display: flex;
+  height: 100vh; /* 100% of viewport height */
+}
+app-map {
+  width: 70%;
+}
+app-header {
+  width: 30%;
+}

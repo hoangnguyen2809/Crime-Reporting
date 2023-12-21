@@ -1,6 +1,8 @@
 <td>{{ crime.location.name }}</td>
 <td>{{ crime.name }}</td>
-<td>{{ crime.time_reported | date : "yyyy-MM-dd (h:mma)" | lowercase }}</td>
+<td>
+  {{ crime.time_reported | date : "yyyy-MM-dd (h:mma)" | lowercase }}
+</td>
 <td class="status">{{ crime.status ? "OPEN" : "RESOLVED" }}</td>
 <td class="extra">
   <button class="btn btn-outline-primary" title="SHOW MORE">

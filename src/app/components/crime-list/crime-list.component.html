@@ -1,0 +1,15 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Location</th>
+      <th>Crime</th>
+      <th>Time Reported</th>
+      <th>Status</th>
+      <th class="extra"></th>
+      <th class="extra"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr app-crime *ngFor="let crime of crimes" [crime]="crime"></tr>
+  </tbody>
+</table>
