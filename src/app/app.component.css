@@ -5,11 +5,13 @@
 }
 
 .app-header {
-  width: 30%;
+  width: 40%;
   min-width: 480px;
+  max-width: 100%;
+  background-color: rgb(253, 249, 241);
 }
 
 .app-map {
   position: relative;
-  width: 70%;
+  width: 60%;
 }

@@ -1,15 +1,8 @@
 h1 {
-  margin: 10px;
-  font-size: 30px; /* Set your desired font size */
+  margin: 20px;
+  font-size: 40px;
 }
 
-.container {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.center {
-  margin-bottom: 20px; /* Add space between button and app-crime-list */
+.list-container {
+  margin-top: 50px;
 }
