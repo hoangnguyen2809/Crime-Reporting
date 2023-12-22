@@ -1,10 +1,15 @@
 .app-container {
   display: flex;
   height: 100vh; /* 100% of viewport height */
+  position: relative; /* Establish stacking context for absolute positioning */
 }
-app-map {
-  width: 70%;
-}
-app-header {
+
+.app-header {
   width: 30%;
+  min-width: 480px;
+}
+
+.app-map {
+  position: relative;
+  width: 70%;
 }
