@@ -52,7 +52,7 @@ export const CRIMES: Crime[] = [
         longitude: -122.849,
       },
       reporter: 'Gojo',
-      time_reported: 1702706586824,
+      time_reported: new Date().getTime(),
     },
   },
 ];
