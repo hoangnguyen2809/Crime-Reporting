@@ -5,13 +5,15 @@ export interface Location {
 }
 
 export interface Crime {
-  image?: string;
-  id?: string;
-  name: string;
-  location: Location;
-  time_reported: any;
-  phone: string;
-  reporter: string;
-  status: boolean;
-  extra: string;
+  key: string;
+  data: {
+    image?: string;
+    name: string;
+    location: Location;
+    time_reported: any;
+    phone: string;
+    reporter: string;
+    status: boolean;
+    extra: string;
+  };
 }

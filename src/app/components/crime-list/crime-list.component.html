@@ -10,6 +10,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr app-crime *ngFor="let crime of crimes" [crime]="crime"></tr>
+    <tr
+      app-crime
+      *ngFor="let crime of crimes"
+      [crime]="crime"
+      (onDeleteCrime)="deleteCrime(crime)"
+    ></tr>
   </tbody>
 </table>

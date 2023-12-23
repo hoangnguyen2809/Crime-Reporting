@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { Crime } from '../../Crime';
 import { CRIMES } from '../../mock-crimes';
 
@@ -9,5 +9,10 @@ import { CRIMES } from '../../mock-crimes';
 })
 export class CrimeComponent {
   @Input() crime!: Crime;
+  @Output() onDeleteCrime: EventEmitter<Crime> = new EventEmitter();
   constructor() {}
+
+  onDelete(crime: Crime) {
+    this.onDeleteCrime.emit(crime);
+  }
 }
