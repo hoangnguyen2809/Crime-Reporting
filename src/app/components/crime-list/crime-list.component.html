@@ -1,3 +1,14 @@
+<p class="searchBar">
+  SEARCH: <input class="search" type="text" [(ngModel)]="query" />
+</p>
+
+<div class="case-info">
+  <p class="left-info">Total case: {{ crimes | search : query | summary }}</p>
+  <p class="right-info">
+    Unsolved case: {{ crimes | search : query | unsolves }}
+  </p>
+</div>
+
 <table class="table">
   <thead>
     <tr>
@@ -12,9 +23,11 @@
   <tbody>
     <tr
       app-crime
-      *ngFor="let crime of crimes"
+      *ngFor="let crime of crimes | search : query"
       [crime]="crime"
       (onDeleteCrime)="deleteCrime(crime)"
     ></tr>
   </tbody>
 </table>
+
+<app-crime-add-form></app-crime-add-form>

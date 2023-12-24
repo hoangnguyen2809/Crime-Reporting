@@ -8,6 +8,12 @@ import { HeaderComponent } from './components/header/header.component';
 import { CrimeComponent } from './components/crime/crime.component';
 import { CrimeListComponent } from './components/crime-list/crime-list.component';
 import { MapComponent } from './components/map/map.component';
+import { SummaryPipe } from './pipes/summary.pipe';
+import { UnsolvesPipe } from './pipes/unsolves.pipe';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SearchPipe } from './pipes/search.pipe';
+import { CrimeAddFormComponent } from './components/crime-add-form/crime-add-form.component';
 
 @NgModule({
   declarations: [
@@ -16,8 +22,18 @@ import { MapComponent } from './components/map/map.component';
     CrimeComponent,
     CrimeListComponent,
     MapComponent,
+    SummaryPipe,
+    UnsolvesPipe,
+    SearchPipe,
+    CrimeAddFormComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

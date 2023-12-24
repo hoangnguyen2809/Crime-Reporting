@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Crime } from '../Crime';
+import { Crime, Location } from '../Crime';
 import { CRIMES } from '../mock-crimes';
 import { Observable } from 'rxjs/internal/Observable';
-import { map, of } from 'rxjs';
+import { map, of, switchMap } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -16,6 +16,25 @@ export class CrimeService {
 
   getCrimes(): Observable<Crime[]> {
     return this.http.get<Crime[]>(this.apiUrl);
+  }
+
+  getExistingLocations(): Observable<Location[]> {
+    return this.getCrimes().pipe(
+      map((crimes: Crime[]) => this.extractUniqueLocations(crimes))
+    );
+  }
+
+  private extractUniqueLocations(crimes: Crime[]): Location[] {
+    const uniqueLocationsMap: Map<string, Location> = new Map();
+
+    crimes.forEach((crime) => {
+      const locationKey = `${crime.data.location.latitude},${crime.data.location.longitude}`;
+      if (!uniqueLocationsMap.has(locationKey)) {
+        uniqueLocationsMap.set(locationKey, crime.data.location);
+      }
+    });
+
+    return Array.from(uniqueLocationsMap.values());
   }
 
   deleteCrime(crime: Crime): Observable<Crime> {

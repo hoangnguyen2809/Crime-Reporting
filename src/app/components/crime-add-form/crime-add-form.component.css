@@ -1,0 +1,74 @@
+fieldset {
+  padding-left: 10px;
+}
+
+textarea {
+  width: 90%;
+}
+
+legend {
+  font-family: Arial, sans-serif;
+  text-align: left;
+  font-size: xx-large;
+}
+/* Style for the sections */
+
+.cancelBtn {
+  margin-right: 15px;
+  margin-top: 15px;
+}
+
+.submitBtn {
+  align-self: flex-end;
+  float: right;
+  margin-right: 15px;
+  margin-top: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Style for inputs */
+input[type="text"],
+input[type="file"] {
+  width: calc(100% - 12px);
+  padding: 5px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+input[type="file"] {
+  display: block;
+  margin: 0 auto;
+  padding: 10px; /* Optional: Add padding for better appearance */
+}
+
+select {
+  width: calc(100% - 12px);
+  padding: 5px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.addBtn {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 70%;
+}
+
+.centered {
+  text-align: center;
+}
+
+.error-message {
+  color: red;
+}
+
+textarea {
+  width: calc(100% - 12px);
+  padding: 5px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}

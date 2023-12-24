@@ -1,0 +1,47 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+  <fieldset class="d-grid gap-2 col-12">
+    <legend>Report a case:</legend>
+    <div class="info-section">
+      <label for="name">Case:</label>
+      <input type="text" id="name" name="name" />
+      <br />
+      <label for="location">Location:</label>
+
+      <select id="location" name="location">
+        <option value="" disabled selected hidden>
+          Select or Add a location
+        </option>
+
+        <option value="newLocation">Add New Location</option>
+      </select>
+
+      <!-- <div *ngIf="location === 'newLocation'" class="add-new-location">
+        <label for="newLocationInput">Enter New Location:</label>
+        <input type="text" id="newLocationInput" name="newLocationInput" />
+      </div> -->
+      <br />
+
+      <label for="extra">Description (Optional):</label>
+      <textarea type="text" id="extra" name="extra"></textarea>
+      <br />
+
+      <label for="imageURL">Image URL(Optional):</label>
+      <input type="text" id="image" name="image" />
+      <br />
+      <label for="reporter">Reported by:</label>
+      <input type="text" id="reporter" name="reporter" />
+
+      <br />
+
+      <label for="phone">Reporter's phone number:</label>
+      <input type="text" id="phone" name="phone" />
+
+      <br />
+    </div>
+
+    <div>
+      <button class="cancelBtn btn btn-outline-danger">Cancel</button>
+      <input class="submitBtn btn btn-primary" type="submit" value="Submit" />
+    </div>
+  </fieldset>
+</form>
