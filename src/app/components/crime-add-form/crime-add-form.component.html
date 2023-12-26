@@ -1,47 +1,101 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+<form (ngSubmit)="onSubmit()">
   <fieldset class="d-grid gap-2 col-12">
     <legend>Report a case:</legend>
+
     <div class="info-section">
       <label for="name">Case:</label>
-      <input type="text" id="name" name="name" />
+      <input type="text" id="name" name="name" [(ngModel)]="name" />
+      <div
+        *ngIf="name && (name.length < 3 || !isValidName())"
+        class="error-message"
+      >
+        Must be at least 3 characters, and contain only letters.
+      </div>
       <br />
+
       <label for="location">Location:</label>
 
-      <select id="location" name="location">
+      <select id="location" name="location" [(ngModel)]="location">
         <option value="" disabled selected hidden>
           Select or Add a location
+        </option>
+
+        <option
+          *ngFor="let location of existingLocations"
+          [value]="location.name"
+        >
+          {{ location.name }}
         </option>
 
         <option value="newLocation">Add New Location</option>
       </select>
 
-      <!-- <div *ngIf="location === 'newLocation'" class="add-new-location">
+      <div *ngIf="location === 'newLocation'" class="add-new-location">
         <label for="newLocationInput">Enter New Location:</label>
-        <input type="text" id="newLocationInput" name="newLocationInput" />
-      </div> -->
+        <input
+          type="text"
+          id="newLocationInput"
+          name="newLocationInput"
+          [(ngModel)]="newLocation"
+        />
+      </div>
+      <div
+        *ngIf="
+          location === 'newLocation' &&
+          newLocation.length < 3 &&
+          newLocation.length > 0
+        "
+        class="error-message"
+      >
+        Must be at least 3 characters.
+      </div>
+
       <br />
 
       <label for="extra">Description (Optional):</label>
-      <textarea type="text" id="extra" name="extra"></textarea>
+      <textarea
+        type="text"
+        id="extra"
+        name="extra"
+        [(ngModel)]="extra"
+      ></textarea>
       <br />
 
       <label for="imageURL">Image URL(Optional):</label>
-      <input type="text" id="image" name="image" />
-      <br />
-      <label for="reporter">Reported by:</label>
-      <input type="text" id="reporter" name="reporter" />
+      <input type="text" id="image" name="image" [(ngModel)]="image" />
 
+      <br />
+
+      <label for="reporter">Reported by:</label>
+      <input type="text" id="reporter" name="reporter" [(ngModel)]="reporter" />
+      <div
+        *ngIf="reporter && (reporter.length < 3 || !isValidReporter())"
+        class="error-message"
+      >
+        Must be at least 3 characters, and contain only letters.
+      </div>
       <br />
 
       <label for="phone">Reporter's phone number:</label>
-      <input type="text" id="phone" name="phone" />
+      <input type="text" id="phone" name="phone" [(ngModel)]="phone" />
+      <div
+        *ngIf="phone && (phone.length < 8 || !isValidPhone())"
+        class="error-message"
+      >
+        Phone number should contain at least 7 digits and no characters.
+      </div>
 
       <br />
     </div>
 
     <div>
       <button class="cancelBtn btn btn-outline-danger">Cancel</button>
-      <input class="submitBtn btn btn-primary" type="submit" value="Submit" />
+      <input
+        class="submitBtn btn btn-primary"
+        type="submit"
+        value="Submit"
+        [disabled]="!areAllFieldsValid()"
+      />
     </div>
   </fieldset>
 </form>

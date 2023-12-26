@@ -6,6 +6,12 @@ import { map, of, switchMap } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+  }),
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -51,5 +57,9 @@ export class CrimeService {
           return hashedPassword === 'fcab0453879a2b2281bc5073e3f5fe54';
         })
       );
+  }
+
+  addCrime(crime: Crime): Observable<Crime> {
+    return this.http.post<Crime>(this.apiUrl, crime, httpOptions);
   }
 }
