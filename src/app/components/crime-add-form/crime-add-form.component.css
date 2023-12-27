@@ -72,3 +72,7 @@ textarea {
   margin-bottom: 10px;
   box-sizing: border-box;
 }
+
+#back {
+  margin-left: 10px;
+}

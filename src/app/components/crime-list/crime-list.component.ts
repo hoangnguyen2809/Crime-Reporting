@@ -20,9 +20,24 @@ export class CrimeListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.crimeService.getCrimes().subscribe((crimes) => {
+    this.fetchCrimes();
+    this.subscribeToAddCrime();
+  }
+
+  private fetchCrimes(): void {
+    this.crimeService.getCrimes().subscribe((crimes: Crime[]) => {
       this.crimes = crimes;
     });
+  }
+
+  private subscribeToAddCrime(): void {
+    this.crimeService
+      .getNewlyAddedCrime()
+      .subscribe((addedCrime: Crime | null) => {
+        if (addedCrime) {
+          this.crimes.push(addedCrime);
+        }
+      });
   }
 
   deleteCrime(crime: Crime) {

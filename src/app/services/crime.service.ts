@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Crime, Location } from '../Crime';
-import { CRIMES } from '../mock-crimes';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, BehaviorSubject, tap } from 'rxjs';
 import { map, of, switchMap } from 'rxjs';
-import { v4 as uuidv4 } from 'uuid';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const httpOptions = {
@@ -18,6 +16,9 @@ const httpOptions = {
 export class CrimeService {
   private apiUrl =
     'https://272.selfip.net/apps/1ExYc9Fy1j/collections/Reports/documents/';
+
+  private newCrimeSubject = new BehaviorSubject<Crime | null>(null);
+
   constructor(private http: HttpClient) {}
 
   getCrimes(): Observable<Crime[]> {
@@ -60,6 +61,14 @@ export class CrimeService {
   }
 
   addCrime(crime: Crime): Observable<Crime> {
-    return this.http.post<Crime>(this.apiUrl, crime, httpOptions);
+    return this.http.post<Crime>(this.apiUrl, crime, httpOptions).pipe(
+      tap((addedCrime: Crime) => {
+        // When a crime is successfully added, emit it to subscribers
+        this.newCrimeSubject.next(addedCrime);
+      })
+    );
+  }
+  getNewlyAddedCrime(): Observable<Crime | null> {
+    return this.newCrimeSubject.asObservable();
   }
 }

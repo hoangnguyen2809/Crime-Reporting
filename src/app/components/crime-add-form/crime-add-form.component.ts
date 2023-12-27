@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Crime, Location } from '../../Crime';
 import { CrimeService } from '../../services/crime.service';
 import { v4 as uuidv4 } from 'uuid';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crime-add-form',
@@ -29,7 +30,7 @@ export class CrimeAddFormComponent implements OnInit {
 
   newLocation: string = '';
 
-  constructor(private crimeService: CrimeService) {}
+  constructor(private crimeService: CrimeService, private router: Router) {}
 
   isValidName(): boolean {
     return /^[A-Za-z\s]+$/.test(this.name || '');
@@ -80,6 +81,7 @@ export class CrimeAddFormComponent implements OnInit {
     console.log(newCrime);
 
     this.onAddCrime.emit(newCrime);
+    this.crimeService.addCrime(newCrime).subscribe((addedCrime: Crime) => {});
 
     this.name = '';
     this.location = '';
@@ -87,6 +89,8 @@ export class CrimeAddFormComponent implements OnInit {
     this.phone = '';
     this.extra = '';
     this.image = '';
+
+    this.router.navigate(['']);
   }
 
   areAllFieldsValid(): boolean {
