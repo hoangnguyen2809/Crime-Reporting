@@ -4,5 +4,13 @@
   </div>
   <div class="app-map">
     <app-map></app-map>
+    <button
+      *ngIf="currentRoute !== '/add'"
+      id="createReport"
+      class="btn btn-primary"
+      routerLink="/add"
+    >
+      CREATE A NUISANCE REPORT
+    </button>
   </div>
 </div>

@@ -4,16 +4,3 @@
   border: solid 0.5px grey;
   min-width: 320px;
 }
-
-#createReport {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 16px;
-  padding: 8px 70px;
-  border-radius: 10px;
-  z-index: 400;
-  width: 60%;
-  min-width: 300px;
-}

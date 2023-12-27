@@ -7,7 +7,7 @@ import { CrimeService } from '../../services/crime.service';
   templateUrl: './crime-list.component.html',
   styleUrl: './crime-list.component.css',
 })
-export class CrimeListComponent implements OnInit, AfterViewInit {
+export class CrimeListComponent implements OnInit {
   crimes: Crime[] = [];
   query: string;
   defaultLocationSort: number = 0;
@@ -17,9 +17,6 @@ export class CrimeListComponent implements OnInit, AfterViewInit {
 
   constructor(private crimeService: CrimeService) {
     this.query = '';
-  }
-  ngAfterViewInit(): void {
-    throw new Error('Method not implemented.');
   }
 
   ngOnInit(): void {
@@ -103,6 +100,7 @@ export class CrimeListComponent implements OnInit, AfterViewInit {
   }
 
   addCrime(crime: Crime) {
+    console.log('Crime taken inside crime-list' + crime);
     this.crimeService.addCrime(crime).subscribe((crime) => {
       this.crimes.push(crime);
     });

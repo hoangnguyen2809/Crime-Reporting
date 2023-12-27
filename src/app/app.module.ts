@@ -14,6 +14,12 @@ import { UnsolvesPipe } from './pipes/unsolves.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchPipe } from './pipes/search.pipe';
 import { CrimeAddFormComponent } from './components/crime-add-form/crime-add-form.component';
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: '', component: CrimeListComponent },
+  { path: 'add', component: CrimeAddFormComponent },
+];
 
 @NgModule({
   declarations: [
@@ -33,6 +39,7 @@ import { CrimeAddFormComponent } from './components/crime-add-form/crime-add-for
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes, { enableTracing: true }),
   ],
   providers: [],
   bootstrap: [AppComponent],

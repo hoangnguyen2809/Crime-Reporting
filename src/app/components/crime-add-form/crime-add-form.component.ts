@@ -77,6 +77,7 @@ export class CrimeAddFormComponent implements OnInit {
         time_reported: new Date().getTime(),
       },
     };
+    console.log(newCrime);
 
     this.onAddCrime.emit(newCrime);
 

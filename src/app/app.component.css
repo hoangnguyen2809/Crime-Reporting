@@ -15,3 +15,15 @@
   position: relative;
   width: 70%;
 }
+#createReport {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  padding: 8px 70px;
+  border-radius: 10px;
+  z-index: 600;
+  width: 60%;
+  min-width: 300px;
+}
