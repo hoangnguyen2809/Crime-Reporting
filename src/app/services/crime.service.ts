@@ -18,6 +18,10 @@ export class CrimeService {
     'https://272.selfip.net/apps/1ExYc9Fy1j/collections/Reports/documents/';
 
   private newCrimeSubject = new BehaviorSubject<Crime | null>(null);
+  private clickedCoordinatesSubject = new BehaviorSubject<{
+    lat: number;
+    lng: number;
+  } | null>(null);
 
   constructor(private http: HttpClient) {}
 
@@ -70,5 +74,13 @@ export class CrimeService {
   }
   getNewlyAddedCrime(): Observable<Crime | null> {
     return this.newCrimeSubject.asObservable();
+  }
+
+  setClickedCoordinates(lat: number, lng: number) {
+    this.clickedCoordinatesSubject.next({ lat, lng });
+  }
+
+  getClickedCoordinates(): Observable<{ lat: number; lng: number } | null> {
+    return this.clickedCoordinatesSubject.asObservable();
   }
 }

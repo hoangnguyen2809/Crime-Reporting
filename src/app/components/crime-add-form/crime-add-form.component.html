@@ -38,6 +38,12 @@
           name="newLocationInput"
           [(ngModel)]="newLocation"
         />
+        <p *ngIf="clickedCoordinates?.lng">
+          Longitude: {{ clickedCoordinates?.lng }}
+        </p>
+        <p *ngIf="clickedCoordinates?.lat">
+          Latitude: {{ clickedCoordinates?.lat }}
+        </p>
       </div>
       <div
         *ngIf="

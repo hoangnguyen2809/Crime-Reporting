@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class CrimeAddFormComponent implements OnInit {
   @Output() onAddCrime: EventEmitter<Crime> = new EventEmitter();
   existingLocations: Location[] = [];
+  clickedCoordinates: { lat: number; lng: number } | null = null;
 
   image!: string;
   name!: string;
@@ -51,7 +52,14 @@ export class CrimeAddFormComponent implements OnInit {
   ngOnInit(): void {
     this.crimeService.getExistingLocations().subscribe((location) => {
       this.existingLocations = location;
-      console.log(this.existingLocations); // Log inside the subscription block
+      console.log(this.existingLocations);
+    });
+
+    this.crimeService.getClickedCoordinates().subscribe((coordinates) => {
+      if (coordinates) {
+        this.clickedCoordinates = coordinates;
+        console.log('Clicked coordinates:', this.clickedCoordinates);
+      }
     });
   }
 
