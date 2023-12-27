@@ -52,7 +52,6 @@ export class CrimeAddFormComponent implements OnInit {
   ngOnInit(): void {
     this.crimeService.getExistingLocations().subscribe((location) => {
       this.existingLocations = location;
-      console.log(this.existingLocations);
     });
 
     this.crimeService.getClickedCoordinates().subscribe((coordinates) => {
@@ -64,8 +63,18 @@ export class CrimeAddFormComponent implements OnInit {
   }
 
   onSubmit() {
+    let foundLocation;
+
     if (this.location === 'newLocation') {
       this.location = this.newLocation;
+      this.latitude = this.clickedCoordinates?.lat || 0;
+      this.longitude = this.clickedCoordinates?.lng || 0;
+    } else {
+      foundLocation = this.existingLocations.find(
+        (location) => location.name === this.location
+      );
+      this.latitude = foundLocation!.latitude;
+      this.longitude = foundLocation!.longitude;
     }
 
     const key = uuidv4();
