@@ -25,6 +25,7 @@ export class CrimeAddFormComponent implements OnInit {
   status!: boolean;
 
   nameError: boolean = false;
+  newLocationError: boolean = false;
   locationError: boolean = false;
   reporterError: boolean = false;
   phoneError: boolean = false;
@@ -114,6 +115,10 @@ export class CrimeAddFormComponent implements OnInit {
     this.nameError = !this.name || this.name.length < 3 || !this.isValidName();
     this.locationError =
       !this.location || this.location.length < 3 || !this.isValidLocation();
+    this.newLocationError =
+      !this.newLocation ||
+      this.newLocation.length < 3 ||
+      !this.isValidLocation();
     this.reporterError =
       !this.reporter || this.reporter.length < 3 || !this.isValidReporter();
     this.phoneError =
@@ -122,7 +127,8 @@ export class CrimeAddFormComponent implements OnInit {
       this.nameError ||
       this.locationError ||
       this.reporterError ||
-      this.phoneError
+      this.phoneError ||
+      this.newLocationError
     );
   }
 }

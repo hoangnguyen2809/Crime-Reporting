@@ -38,6 +38,7 @@
           name="newLocationInput"
           [(ngModel)]="newLocation"
         />
+        <p>*Please specify the location using the map</p>
         <p *ngIf="clickedCoordinates?.lng">
           Longitude: {{ clickedCoordinates?.lng }}
         </p>

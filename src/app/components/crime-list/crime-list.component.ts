@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { Crime } from '../../Crime';
+import { Crime, Location } from '../../Crime';
 import { CrimeService } from '../../services/crime.service';
 
 @Component({
@@ -15,12 +15,15 @@ export class CrimeListComponent implements OnInit {
   defaultTimeSort: number = 0;
   defaultStatusSort: number = 0;
 
+  locations: Location[] = [];
+
   constructor(private crimeService: CrimeService) {
     this.query = '';
   }
 
   ngOnInit(): void {
     this.fetchCrimes();
+    this.fetchLocations();
     this.subscribeToAddCrime();
   }
 
@@ -28,6 +31,14 @@ export class CrimeListComponent implements OnInit {
     this.crimeService.getCrimes().subscribe((crimes: Crime[]) => {
       this.crimes = crimes;
     });
+  }
+
+  fetchLocations(): void {
+    this.crimeService
+      .getExistingLocations()
+      .subscribe((locations: Location[]) => {
+        this.locations = locations;
+      });
   }
 
   private subscribeToAddCrime(): void {
@@ -47,6 +58,14 @@ export class CrimeListComponent implements OnInit {
         if (isValid) {
           this.crimeService.deleteCrime(crime).subscribe(() => {
             this.crimes = this.crimes.filter((v) => v.key !== crime.key);
+
+            // Find the associated location of the crime
+            const location = this.locations.find(
+              (loc) => loc.name === crime.data.location.name
+            );
+            if (location) {
+              this.crimeService.removeLocation(location); // Add this method in CrimeService
+            }
           });
         } else {
           alert('Wrong password');
@@ -55,6 +74,12 @@ export class CrimeListComponent implements OnInit {
     } else {
       alert('Please enter a password to delete a case');
     }
+  }
+  addCrime(crime: Crime) {
+    console.log('Crime taken inside crime-list' + crime);
+    this.crimeService.addCrime(crime).subscribe((crime) => {
+      this.crimes.push(crime);
+    });
   }
 
   sortLocation() {
@@ -112,12 +137,5 @@ export class CrimeListComponent implements OnInit {
       this.sortTime();
       this.defaultNameSort = 0;
     }
-  }
-
-  addCrime(crime: Crime) {
-    console.log('Crime taken inside crime-list' + crime);
-    this.crimeService.addCrime(crime).subscribe((crime) => {
-      this.crimes.push(crime);
-    });
   }
 }

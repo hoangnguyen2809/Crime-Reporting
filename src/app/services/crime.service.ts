@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Crime, Location } from '../Crime';
-import { Observable, BehaviorSubject, tap } from 'rxjs';
+import { Observable, BehaviorSubject, tap, Subject } from 'rxjs';
 import { map, of, switchMap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -22,6 +22,8 @@ export class CrimeService {
     lat: number;
     lng: number;
   } | null>(null);
+
+  private locationSubject = new Subject<Location>();
 
   constructor(private http: HttpClient) {}
 
@@ -82,5 +84,13 @@ export class CrimeService {
 
   getClickedCoordinates(): Observable<{ lat: number; lng: number } | null> {
     return this.clickedCoordinatesSubject.asObservable();
+  }
+
+  removeLocation(location: Location): void {
+    this.locationSubject.next(location); // Notify subscribers about the location removal
+  }
+
+  getLocationRemoval(): Observable<Location> {
+    return this.locationSubject.asObservable();
   }
 }

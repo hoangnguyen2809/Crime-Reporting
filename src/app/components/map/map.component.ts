@@ -6,7 +6,7 @@ import { CrimeService } from '../../services/crime.service';
 import { Router, NavigationEnd } from '@angular/router';
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
-const iconUrl = 'assets/marker-icon.png';
+const iconUrl = 'assets/marker-icon-2x.png';
 const shadowUrl = 'assets/marker-shadow.png';
 
 const iconDefault = L.icon({
@@ -34,57 +34,58 @@ export class MapComponent implements AfterViewInit {
   mapClickEnabled = true;
   existingLocations: Location[] = [];
   markers: L.Marker[] = [];
+  updateMarkersArray: L.Marker[] = [];
 
   constructor(private crimeService: CrimeService, private router: Router) {
     this.onMapClick = this.onMapClick.bind(this);
   }
   ngOnInit(): void {
-    // Subscribe to router events to detect route changes
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         if (event.url === '/add') {
-          // Show the map and handle onMapClick for the "/add" route
           this.mapClickEnabled = true;
-
-          // Clear markers and their popups when navigating to "/add"
-          this.clearMarkers();
+          // this.clearMarkers();
+          this.clearUpdateMarkers();
         } else if (event.url === '/') {
-          // Call showAllMarker only when the route is empty ("")
+          this.mapClickEnabled = false;
+          this.closeMapPopup();
           this.crimeService.getExistingLocations().subscribe((locations) => {
             this.existingLocations = locations;
-            console.log('Existing Locations:', this.existingLocations);
-
-            this.showAllMarker(this.existingLocations);
+            // this.showAllMarker(this.existingLocations);
+            this.updateMarkers();
           });
         }
       }
     });
+    this.crimeService
+      .getLocationRemoval()
+      .subscribe((removedLocation: Location) => {
+        const markerToRemove = this.updateMarkersArray.find((marker) => {
+          const { latitude, longitude } = removedLocation;
+          const markerLatLng = marker.getLatLng();
+          return (
+            markerLatLng.lat === latitude && markerLatLng.lng === longitude
+          );
+        });
+
+        if (markerToRemove) {
+          markerToRemove.remove();
+          this.updateMarkersArray = this.updateMarkersArray.filter(
+            (marker) => marker !== markerToRemove
+          );
+        }
+      });
   }
 
-  showAllMarker(existingLocations: Location[]): void {
-    existingLocations.forEach((location) => {
-      const { name, latitude, longitude } = location;
-      const marker = L.marker([latitude, longitude]).addTo(this.map);
-      marker.addTo(this.map).bindPopup(`<b>${name}</b><br/>`);
-
-      // Store the marker in the markers array
-      this.markers.push(marker);
-    });
-  }
-
-  clearMarkers(): void {
-    // Remove all markers and their popups from the map
-    this.markers.forEach((marker) => {
+  clearUpdateMarkers(): void {
+    this.updateMarkersArray.forEach((marker) => {
       marker.remove();
     });
-
-    // Clear the markers array
-    this.markers = [];
+    this.updateMarkersArray = [];
   }
 
   ngAfterViewInit(): void {
     this.showMap();
-
     this.map.on('click', this.onMapClick);
   }
 
@@ -104,13 +105,10 @@ export class MapComponent implements AfterViewInit {
   onMapClick = (e: any) => {
     if (this.mapClickEnabled) {
       const { lat, lng } = e.latlng;
-
-      // Store the clicked coordinates in the service
       this.crimeService.setClickedCoordinates(lat, lng);
-
       this.popup
         .setLatLng(e.latlng)
-        .setContent('You clicked the map at ' + e.latlng.toString())
+        .setContent('A nuisance is happening here?')
         .openOn(this.map);
     }
   };
@@ -119,5 +117,24 @@ export class MapComponent implements AfterViewInit {
     if (this.popup.isOpen()) {
       this.popup.remove();
     }
+  }
+  updateMarkers(): void {
+    this.crimeService.getExistingLocations().subscribe((locations) => {
+      // Clear existing update markers
+      this.updateMarkersArray.forEach((marker) => {
+        marker.remove();
+      });
+      this.updateMarkersArray = [];
+
+      // Add new markers for the updated locations
+      locations.forEach((location) => {
+        const { latitude, longitude, name } = location;
+        const marker = L.marker([latitude, longitude]).addTo(this.map);
+        marker.addTo(this.map).bindPopup(`<b>${name}</b><br/>,aaa`);
+
+        // Store markers in the updateMarkersArray
+        this.updateMarkersArray.push(marker);
+      });
+    });
   }
 }
