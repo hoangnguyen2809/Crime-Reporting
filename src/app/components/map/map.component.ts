@@ -126,14 +126,21 @@ export class MapComponent implements AfterViewInit {
       });
       this.updateMarkersArray = [];
 
-      // Add new markers for the updated locations
-      locations.forEach((location) => {
-        const { latitude, longitude, name } = location;
-        const marker = L.marker([latitude, longitude]).addTo(this.map);
-        marker.addTo(this.map).bindPopup(`<b>${name}</b><br/>,aaa`);
+      // Get crime counts at each location
+      this.crimeService.countCrimesAtLocations().subscribe((crimeCountsMap) => {
+        locations.forEach((location) => {
+          const { latitude, longitude, name } = location;
+          const locationKey = `${latitude},${longitude}`;
+          const crimeCount = crimeCountsMap.get(locationKey) || 0; // Get crime count for this location
 
-        // Store markers in the updateMarkersArray
-        this.updateMarkersArray.push(marker);
+          const marker = L.marker([latitude, longitude]).addTo(this.map);
+          marker
+            .addTo(this.map)
+            .bindPopup(`<b>${name}</b><br/>Number of case: ${crimeCount}`);
+
+          // Store markers in the updateMarkersArray
+          this.updateMarkersArray.push(marker);
+        });
       });
     });
   }

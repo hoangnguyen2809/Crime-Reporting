@@ -93,4 +93,29 @@ export class CrimeService {
   getLocationRemoval(): Observable<Location> {
     return this.locationSubject.asObservable();
   }
+  countCrimesAtLocations(): Observable<Map<string, number>> {
+    return this.getCrimes().pipe(
+      map((crimes: Crime[]) => this.aggregateCrimeCount(crimes))
+    );
+  }
+
+  private aggregateCrimeCount(crimes: Crime[]): Map<string, number> {
+    const crimeCountMap: Map<string, number> = new Map();
+
+    crimes.forEach((crime) => {
+      const { latitude, longitude } = crime.data.location;
+      const locationKey = `${latitude},${longitude}`;
+
+      if (crimeCountMap.has(locationKey)) {
+        // If the location key exists, increment the count
+        const currentCount = crimeCountMap.get(locationKey) || 0;
+        crimeCountMap.set(locationKey, currentCount + 1);
+      } else {
+        // If the location key doesn't exist, initialize count to 1
+        crimeCountMap.set(locationKey, 1);
+      }
+    });
+
+    return crimeCountMap;
+  }
 }
