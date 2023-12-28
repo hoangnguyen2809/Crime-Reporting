@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchPipe } from './pipes/search.pipe';
 import { CrimeAddFormComponent } from './components/crime-add-form/crime-add-form.component';
 import { RouterModule, Routes } from '@angular/router';
+import { NuisanceInfoComponent } from './components/nuisance-info/nuisance-info.component';
 
 const appRoutes: Routes = [
   { path: '', component: CrimeListComponent },
@@ -32,6 +33,7 @@ const appRoutes: Routes = [
     UnsolvesPipe,
     SearchPipe,
     CrimeAddFormComponent,
+    NuisanceInfoComponent,
   ],
   imports: [
     BrowserModule,

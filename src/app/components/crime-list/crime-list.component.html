@@ -13,7 +13,7 @@
   <thead>
     <tr>
       <th class="location" (click)="sortLocation()">Location</th>
-      <th class="name" (click)="sortName()">Crime</th>
+      <th class="name" (click)="sortName()">Nuisance</th>
       <th class="time" (click)="sortTime()">Time Reported</th>
       <th class="status" (click)="sortStatus()">Status</th>
       <th class="extra"></th>
@@ -29,3 +29,5 @@
     ></tr>
   </tbody>
 </table>
+
+<app-nuisance-info [crime]="selectedCrime"></app-nuisance-info>

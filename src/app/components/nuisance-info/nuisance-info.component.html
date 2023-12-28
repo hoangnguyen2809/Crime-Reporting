@@ -1,0 +1,42 @@
+<form method="dialog">
+  <div class="moreForm">
+    <div class="content">
+      <div class="image">
+        <img alt="Reported Image" class="max-image-size" />
+      </div>
+      <table class="more-table">
+        <tr>
+          <th class="column-header">Nuisance</th>
+          <td>{{ crime?.data?.name }}</td>
+        </tr>
+        <tr>
+          <th class="column-header">Location</th>
+          <td>{{ crime?.data?.location }}</td>
+        </tr>
+        <tr>
+          <th class="column-header">Status</th>
+          <td>
+            {{ crime?.data?.status ? "OPEN" : "RESOLVED" }}
+            <button id="changeStatus">CHANGE</button>
+          </td>
+        </tr>
+        <tr>
+          <th class="column-header">Time Reported</th>
+          <td>
+            {{ crime?.data?.time_reported | date : "yyyy-MM-dd (h:mm a)" }}
+          </td>
+        </tr>
+        <tr>
+          <th class="column-header">Reporter</th>
+          <td>{{ crime?.data?.reporter }} ({{ crime?.data?.phone }})</td>
+        </tr>
+        <tr>
+          <th class="column-header">Extra</th>
+          <td>{{ crime?.data?.extra }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <button id="closeBtn" class="btn btn-outline-primary">Close</button>
+  </div>
+</form>

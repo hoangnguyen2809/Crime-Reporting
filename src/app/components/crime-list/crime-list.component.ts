@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Crime, Location } from '../../Crime';
 import { CrimeService } from '../../services/crime.service';
 
@@ -9,6 +15,7 @@ import { CrimeService } from '../../services/crime.service';
 })
 export class CrimeListComponent implements OnInit {
   crimes: Crime[] = [];
+  selectedCrime!: Crime;
   query: string;
   defaultLocationSort: number = 0;
   defaultNameSort: number = 0;
@@ -16,6 +23,8 @@ export class CrimeListComponent implements OnInit {
   defaultStatusSort: number = 0;
 
   locations: Location[] = [];
+
+  @Output() crimeInformation: EventEmitter<Crime> = new EventEmitter();
 
   constructor(private crimeService: CrimeService) {
     this.query = '';
@@ -80,6 +89,11 @@ export class CrimeListComponent implements OnInit {
     this.crimeService.addCrime(crime).subscribe((crime) => {
       this.crimes.push(crime);
     });
+  }
+
+  showMoreInfo(crime: Crime) {
+    this.selectedCrime = crime; // Assign the received villain to selectedVillain
+    this.crimeInformation.emit(crime); // Emitting to parent (ReportComponent)
   }
 
   sortLocation() {
