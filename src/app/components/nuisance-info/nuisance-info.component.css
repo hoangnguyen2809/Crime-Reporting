@@ -28,14 +28,14 @@ th {
 }
 
 .image {
-  border: 1px dashed;
   flex: 1;
   display: flex;
-  height: 350px;
+
   min-width: 350px;
   display: flex;
   justify-content: center;
   align-items: center;
+  max-width: 100%;
 }
 
 .moreForm {

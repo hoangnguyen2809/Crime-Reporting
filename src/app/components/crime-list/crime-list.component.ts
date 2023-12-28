@@ -17,10 +17,16 @@ export class CrimeListComponent implements OnInit {
   crimes: Crime[] = [];
   selectedCrime!: Crime;
   query: string;
+
   defaultLocationSort: number = 0;
   defaultNameSort: number = 0;
   defaultTimeSort: number = 0;
   defaultStatusSort: number = 0;
+
+  isLocationSorted: boolean = false;
+  isNameSorted: boolean = false;
+  isTimeSorted: boolean = false;
+  isStatusSorted: boolean = false;
 
   locations: Location[] = [];
 
@@ -97,59 +103,34 @@ export class CrimeListComponent implements OnInit {
   }
 
   sortLocation() {
-    if (this.defaultLocationSort == 0) {
-      this.crimes.sort((a, b) =>
-        a.data.location.name.localeCompare(b.data.location.name)
-      );
-      this.defaultLocationSort = 1;
-    } else if (this.defaultLocationSort == 1) {
-      this.crimes.sort((a, b) =>
-        b.data.location.name.localeCompare(a.data.location.name)
-      );
-      this.defaultLocationSort = 2;
-    } else if (this.defaultLocationSort == 2) {
-      this.sortTime();
-      this.defaultLocationSort = 0;
-    }
+    this.crimes.sort((a, b) =>
+      a.data.location.name.localeCompare(b.data.location.name)
+    );
+    this.isLocationSorted = true;
+    this.isNameSorted = false;
+    this.isTimeSorted = false;
   }
+
   sortName() {
-    if (this.defaultNameSort == 0) {
-      this.crimes.sort((a, b) => a.data.name.localeCompare(b.data.name));
-      this.defaultNameSort = 1;
-    } else if (this.defaultNameSort == 1) {
-      this.crimes.sort((a, b) => b.data.name.localeCompare(a.data.name));
-      this.defaultNameSort = 2;
-    } else if (this.defaultNameSort == 2) {
-      this.sortTime();
-      this.defaultNameSort = 0;
-    }
+    this.crimes.sort((a, b) => a.data.name.localeCompare(b.data.name));
+    this.isLocationSorted = false;
+    this.isNameSorted = true;
+    this.isTimeSorted = false;
   }
+
   sortTime() {
-    if (this.defaultTimeSort == 0) {
-      this.crimes.sort((a, b) => a.data.time_reported - b.data.time_reported);
-      this.defaultTimeSort = 1;
-    } else if (this.defaultTimeSort == 1) {
-      this.crimes.sort((a, b) => b.data.time_reported - a.data.time_reported);
-      this.defaultTimeSort = 2;
-    } else if (this.defaultTimeSort == 2) {
-      this.crimes.sort((a, b) => a.data.time_reported - b.data.time_reported);
-      this.defaultTimeSort = 0;
-    }
+    this.crimes.sort((a, b) => a.data.time_reported - b.data.time_reported);
+    this.isLocationSorted = false;
+    this.isNameSorted = false;
+    this.isTimeSorted = true;
   }
+
   sortStatus() {
-    if (this.defaultStatusSort == 0) {
-      this.crimes.sort(
-        (a, b) => (a.data.status ? -1 : 1) - (b.data.status ? -1 : 1)
-      );
-      this.defaultNameSort = 1;
-    } else if (this.defaultNameSort == 1) {
-      this.crimes.sort(
-        (a, b) => (b.data.status ? -1 : 1) - (a.data.status ? -1 : 1)
-      );
-      this.defaultNameSort = 2;
-    } else if (this.defaultNameSort == 2) {
-      this.sortTime();
-      this.defaultNameSort = 0;
-    }
+    this.crimes.sort(
+      (a, b) => (a.data.status ? -1 : 1) - (b.data.status ? -1 : 1)
+    );
+    this.isLocationSorted = false;
+    this.isNameSorted = true;
+    this.isTimeSorted = false;
   }
 }

@@ -35,7 +35,7 @@ export class CrimeAddFormComponent implements OnInit {
   constructor(private crimeService: CrimeService, private router: Router) {}
 
   isValidName(): boolean {
-    return /^[A-Za-z\s]+$/.test(this.name || '');
+    return /^[A-Za-z\s.-]+$/.test(this.name || '');
   }
 
   isValidLocation(): boolean {
@@ -43,7 +43,7 @@ export class CrimeAddFormComponent implements OnInit {
   }
 
   isValidReporter(): boolean {
-    return /^[A-Za-z\s]+$/.test(this.reporter || '');
+    return /^[A-Za-z\s.-]+$/.test(this.reporter || '');
   }
 
   isValidPhone(): boolean {
