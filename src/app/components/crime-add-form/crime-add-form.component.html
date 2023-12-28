@@ -1,9 +1,11 @@
 <form (ngSubmit)="onSubmit()">
   <fieldset class="d-grid gap-2 col-12">
     <legend>Report a case:</legend>
-
+    <p>
+      Required fields are marked with a asterisk (*) next to the field label.
+    </p>
     <div class="info-section">
-      <label for="name">Case:</label>
+      <label for="name">Case(*):</label>
       <input type="text" id="name" name="name" [(ngModel)]="name" />
       <div
         *ngIf="name && (name.length < 3 || !isValidName())"
@@ -13,7 +15,7 @@
       </div>
       <br />
 
-      <label for="location">Location:</label>
+      <label for="location">Location(*):</label>
 
       <select id="location" name="location" [(ngModel)]="location">
         <option value="" disabled selected hidden>
@@ -38,28 +40,34 @@
           name="newLocationInput"
           [(ngModel)]="newLocation"
         />
-        <p>*Please specify the location using the map</p>
+
         <p *ngIf="clickedCoordinates?.lng">
-          Longitude: {{ clickedCoordinates?.lng }}
+          Longitude: {{ clickedCoordinates.lng }}
         </p>
         <p *ngIf="clickedCoordinates?.lat">
-          Latitude: {{ clickedCoordinates?.lat }}
+          Latitude: {{ clickedCoordinates.lat }}
         </p>
-      </div>
-      <div
-        *ngIf="
-          location === 'newLocation' &&
-          newLocation.length < 3 &&
-          newLocation.length > 0
-        "
-        class="error-message"
-      >
-        Must be at least 3 characters.
+        <div
+          *ngIf="
+            location === 'newLocation' &&
+            newLocation.length < 3 &&
+            newLocation.length > 0
+          "
+          class="error-message"
+        >
+          *Must be at least 3 characters.
+        </div>
+        <p
+          *ngIf="clickedCoordinates?.lng === 0 || clickedCoordinates?.lat === 0"
+          class="error-message"
+        >
+          *Please specify the location using the map
+        </p>
       </div>
 
       <br />
 
-      <label for="extra">Description (Optional):</label>
+      <label for="extra">Description:</label>
       <textarea
         type="text"
         id="extra"
@@ -68,12 +76,12 @@
       ></textarea>
       <br />
 
-      <label for="imageURL">Image URL(Optional):</label>
+      <label for="imageURL">Image URL:</label>
       <input type="text" id="image" name="image" [(ngModel)]="image" />
 
       <br />
 
-      <label for="reporter">Reported by:</label>
+      <label for="reporter">Reported by(*):</label>
       <input type="text" id="reporter" name="reporter" [(ngModel)]="reporter" />
       <div
         *ngIf="reporter && (reporter.length < 3 || !isValidReporter())"
@@ -83,7 +91,7 @@
       </div>
       <br />
 
-      <label for="phone">Reporter's phone number:</label>
+      <label for="phone">Reporter's phone number(*):</label>
       <input type="text" id="phone" name="phone" [(ngModel)]="phone" />
       <div
         *ngIf="phone && (phone.length < 8 || !isValidPhone())"

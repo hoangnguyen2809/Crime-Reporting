@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class CrimeAddFormComponent implements OnInit {
   @Output() onAddCrime: EventEmitter<Crime> = new EventEmitter();
   existingLocations: Location[] = [];
-  clickedCoordinates: { lat: number; lng: number } | null = null;
+  clickedCoordinates: { lat: number; lng: number } = { lat: 0, lng: 0 };
 
   image!: string;
   name!: string;
@@ -68,8 +68,8 @@ export class CrimeAddFormComponent implements OnInit {
 
     if (this.location === 'newLocation') {
       this.location = this.newLocation;
-      this.latitude = this.clickedCoordinates?.lat || 0;
-      this.longitude = this.clickedCoordinates?.lng || 0;
+      this.latitude = this.clickedCoordinates.lat;
+      this.longitude = this.clickedCoordinates.lng;
     } else {
       foundLocation = this.existingLocations.find(
         (location) => location.name === this.location
@@ -115,20 +115,42 @@ export class CrimeAddFormComponent implements OnInit {
     this.nameError = !this.name || this.name.length < 3 || !this.isValidName();
     this.locationError =
       !this.location || this.location.length < 3 || !this.isValidLocation();
+    // console.log('location', this.locationError);
     this.newLocationError =
       !this.newLocation ||
       this.newLocation.length < 3 ||
       !this.isValidLocation();
+    // console.log('newLocation', this.newLocationError);
     this.reporterError =
       !this.reporter || this.reporter.length < 3 || !this.isValidReporter();
     this.phoneError =
       !this.phone || this.phone.length < 7 || !this.isValidPhone();
-    return !(
-      this.nameError ||
-      this.locationError ||
-      this.reporterError ||
-      this.phoneError ||
-      this.newLocationError
-    );
+
+    const latitudeError = this.clickedCoordinates.lat === 0;
+    const longitudeError = this.clickedCoordinates.lng === 0;
+    // console.log(latitudeError, longitudeError);
+
+    if (
+      this.location !== 'newLocation' &&
+      this.locationError === false &&
+      this.newLocationError === true
+    ) {
+      return !(
+        this.nameError ||
+        this.locationError ||
+        this.reporterError ||
+        this.phoneError
+      );
+    } else {
+      return !(
+        this.nameError ||
+        this.locationError ||
+        this.reporterError ||
+        this.phoneError ||
+        this.newLocationError ||
+        latitudeError ||
+        longitudeError
+      );
+    }
   }
 }
