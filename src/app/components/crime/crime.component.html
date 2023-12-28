@@ -5,7 +5,14 @@
 </td>
 <td class="status">{{ crime.data.status ? "OPEN" : "RESOLVED" }}</td>
 <td class="extra">
-  <button class="btn btn-outline-primary" title="SHOW MORE">
+  <button
+    class="btn btn-outline-primary"
+    title="SHOW MORE"
+    (click)="onMore(crime)"
+    (click)="toggleMoreInfo()"
+    (click)="onClick()"
+    onClick="document.getElementById('popup').showModal()"
+  >
     <i class="bi bi-info-square"></i>
   </button>
 </td>

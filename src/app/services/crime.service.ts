@@ -78,6 +78,11 @@ export class CrimeService {
     return this.newCrimeSubject.asObservable();
   }
 
+  changeStatus(crime: Crime): Observable<Crime> {
+    const url = `${this.apiUrl}/${crime.key}`;
+    return this.http.put<Crime>(url, crime);
+  }
+
   setClickedCoordinates(lat: number, lng: number) {
     this.clickedCoordinatesSubject.next({ lat, lng });
   }

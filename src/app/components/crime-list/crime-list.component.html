@@ -26,6 +26,7 @@
       *ngFor="let crime of crimes | search : query"
       [crime]="crime"
       (onDeleteCrime)="deleteCrime(crime)"
+      (onMoreCrime)="showMoreInfo(crime)"
     ></tr>
   </tbody>
 </table>

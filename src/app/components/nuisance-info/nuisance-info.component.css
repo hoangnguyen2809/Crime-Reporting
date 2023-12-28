@@ -1,0 +1,70 @@
+table {
+  border: solid 1pt black;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  text-align: left;
+  table-layout: fixed;
+  min-width: 450px;
+  flex: 1;
+  min-height: 350px;
+}
+thead tr {
+  background-color: #a09f9f;
+  font-size: 1.2em;
+}
+
+/* tr:nth-child(odd) {
+  background-color: lightgray;
+} */
+
+th.column-header {
+  width: 30%;
+}
+
+td,
+th {
+  border: solid 1pt black;
+  padding: 0.5em;
+}
+
+.image {
+  border: 1px dashed;
+  flex: 1;
+  display: flex;
+  height: 350px;
+  min-width: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.moreForm {
+  display: flex;
+  flex-direction: column;
+  width: 850px;
+  border-radius: 6px;
+}
+.content {
+  display: flex;
+}
+
+#closeBtn {
+  justify-content: center;
+  align-self: center;
+  width: 80%;
+  margin-top: 10px;
+}
+
+#popup {
+  border-style: solid 0.5px grey;
+  border-radius: 10px;
+}
+
+#changeStatus {
+  border-radius: 5px;
+}
+
+.max-image-size {
+  max-width: 100%; /* Image won't exceed the width of the parent container */
+  max-height: 100%; /* Image won't exceed the height of the parent container */
+}
