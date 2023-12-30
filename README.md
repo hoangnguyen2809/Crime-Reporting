@@ -1,6 +1,15 @@
-# CrimeReporting
+# NuisanceReporting
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.2.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.2, allowing users to report nuisances and visualize nuisance data on a map.
+
+![GIF](./demonstration.gif)
+
+## Features
+
+- **Reporting Nuisances:** Users can report nuisances by providing necessary details like location, type of nuisance, and additional information.
+- **Interactive Map:** The system includes an interactive map that displays nuisance locations using markers and provides information about each location.
+- **Deleting Nuisances:** Authorized users can delete reported nuisances by verifying their credentials.
+- **Modifying Nuisances Status:** Authorized users can modify reported nuisances by verifying their credentials.
 
 ## Development server
 
@@ -25,3 +34,6 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+The storage server was set up by Greg Baker (a professor at SFU). By the time you run this program, the server may have stopped working, please let me know. 
